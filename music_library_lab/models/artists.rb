@@ -19,11 +19,30 @@ class Artist
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
+  def update()
+    sql = "UPDATE artists SET name = ($1)
+    WHERE id = ($2)"
+    values = [@name, @id]
+    SqlRunner.run(sql, values)
+  end
+
+  def Artist.find_by_id(id)
+    sql = "SELECT * FROM artists
+    WHERE id = ($1)"
+    values = [id]
+    results = SqlRunner.run(sql, values)
+    artist_hash = results.first
+    found_artist = Artist.new(artist_hash)
+  end
+
   def Artist.all()
     sql = "SELECT * FROM artists"
     artist_hashes = SqlRunner.run(sql)
     artists = artist_hashes.map {|artist| Artist.new(artist)}
-
   end
 
+  def Artist.delete_all()
+    sql = "DELETE FROM artists"
+    SqlRunner.run(sql, values)
+  end
 end
