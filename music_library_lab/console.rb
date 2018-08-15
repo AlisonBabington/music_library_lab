@@ -23,19 +23,19 @@ artists = Artist.all()
 album1 = Album.new({
   "name" => "Blood on the Tracks",
   "genre" => "Folk Rock",
-  "artist_id" => "2"
+  "artist_id" => artist1.id
   })
 
 album2 = Album.new({
   "name" => "Blonde on Blonde",
   "genre" => "Folk Rock",
-  "artist_id" => "2"
+  "artist_id" => artist2.id
   })
 
 album3 = Album.new({
   "name" => "Let it Be",
   "genre" => "Pop",
-  "artist_id" => "1"
+  "artist_id" => artist3.id
   })
 
 album4 = Album.new({

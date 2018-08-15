@@ -26,9 +26,24 @@ class Artist
     SqlRunner.run(sql, values)
   end
 
+  def find_albums()
+    sql = "SELECT * FROM albums
+    WHERE artist_id = $1"
+    values = [@id]
+    found_albums = SqlRunner.run(sql, values)
+    return found_albums.map {|album| album}
+  end
+
+  def delete()
+    sql = "DELETE * FROM artists
+    WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
   def Artist.find_by_id(id)
     sql = "SELECT * FROM artists
-    WHERE id = ($1)"
+    WHERE id = $1"
     values = [id]
     results = SqlRunner.run(sql, values)
     artist_hash = results.first

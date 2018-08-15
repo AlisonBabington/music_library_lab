@@ -14,10 +14,10 @@ class Album
   end
 
   def save()
-    sql = " INSERT INTO albums (name)
-    VALUES ($1)
+    sql = " INSERT INTO albums (name, genre, artist_id)
+    VALUES ($1, $2, $3)
     RETURNING (id) "
-    values = [@name]
+    values = [@name, @genre, @artist_id]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
@@ -28,6 +28,22 @@ class Album
     values = [@name, @genre, @artist_id, @id]
     SqlRunner.run(sql, values)
   end
+
+  def delete()
+    sql = "DELETE * FROM albums
+    WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+  def find_artist()
+    sql = "SELECT * FROM artists
+    WHERE id = $1"
+    values = [@artist_id]
+    found_artist = SqlRunner.run(sql, values)
+    found_artist[0]
+  end
+
 
   def Album.find_by_id(id)
     sql = "SELECT * FROM albums
