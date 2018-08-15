@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS artists;
+
+CREATE TABLE artists(
+  ID SERIAL8 PRIMARY KEY,
+  name VARCHAR(255)
+);
