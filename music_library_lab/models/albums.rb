@@ -3,14 +3,14 @@ require('pg')
 
 class Album
 
-  attr_reader :id
-  attr_accessor :name, :genre, :artist_id
+  attr_reader :id, :artist_id
+  attr_accessor :name, :genre
 
   def initialize(details)
     @id = details["id"].to_i if details ["id"]
     @name = details["name"]
     @genre = details["genre"]
-    @artist_id = details["artist_id"].to_i
+    @artist_id = details["artist_id"].to_i if details["artist_id"]
   end
 
   def save()
@@ -44,7 +44,6 @@ class Album
     found_artist[0]
   end
 
-
   def Album.find_by_id(id)
     sql = "SELECT * FROM albums
     WHERE id = ($1)"
@@ -62,7 +61,7 @@ class Album
 
   def Album.delete_all()
     sql = "DELETE FROM albums"
-    SqlRunner.run(sql, values)
+    SqlRunner.run(sql)
   end
 
 end
